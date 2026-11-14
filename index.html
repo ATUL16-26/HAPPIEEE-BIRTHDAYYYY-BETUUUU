@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff1ed">
+<title>Happy Birthday Betuuu | ATUL</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  width:100%;height:100vh;height:100svh;
+  overflow:hidden;font-family:Georgia,serif;color:#74465b;
+}
+
+#app{
+  position:relative;width:100%;height:100%;
+  overflow:hidden;background:#fff5ef;
+}
+
+.scene{
+  position:absolute;inset:0;display:flex;
+  flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;
+  padding:25px;opacity:0;visibility:hidden;
+  transition:opacity 1.3s ease;overflow:hidden;
+}
+
+.scene.active{opacity:1;visibility:visible}
+
+.signature{
+  position:absolute;right:17px;bottom:17px;
+  z-index:20;font-family:"Brush Script MT",cursive;
+  font-style:italic;font-size:19px;letter-spacing:1px;
+  color:#a35b78;
+}
+
+.small-text{
+  font-size:12px;letter-spacing:3px;
+  color:#b17b89;text-transform:uppercase;
+}
+
+/* INTRO */
+#intro{
+  background:linear-gradient(145deg,#fffaf5,#ffece9,#fff3ef);
+}
+
+.intro-title{
+  font-size:clamp(24px,7vw,35px);
+  font-weight:normal;color:#a65f79;margin-bottom:15px;
+}
+
+.start-btn{
+  margin-top:40px;padding:13px 30px;
+  border:1px solid #e6a6ba;border-radius:40px;
+  background:#fff9f6;color:#a35b78;
+  font-size:15px;font-family:Georgia,serif;
+  box-shadow:0 5px 25px #e9a4b344;
+  animation:buttonGlow 2s infinite alternate;
+}
+
+@keyframes buttonGlow{
+  to{box-shadow:0 5px 35px #e9a4b399}
+}
+
+/* HEART SCENE */
+#heartScene{
+  background:radial-gradient(ellipse at 65% 45%,#fff9f2,#ffece9 65%,#fce1e6);
+}
+
+.heart-label{
+  position:absolute;top:17%;font-size:12px;
+  letter-spacing:2px;color:#b7868d;opacity:0;
+}
+
+.scene.active .heart-label{
+  animation:fadeIn 1.5s 1s forwards;
+}
+
+.heart-area{
+  position:relative;width:180px;height:180px;
+  display:grid;place-items:center;
+}
+
+.heart{
+  font-size:105px;position:relative;z-index:3;
+  filter:drop-shadow(0 7px 13px #ec80a7aa);
+  animation:heartBeat 1.6s infinite;
+}
+
+.heart-glow{
+  position:absolute;width:100px;height:100px;
+  border-radius:50%;background:#ffadc9;
+  filter:blur(35px);
+  animation:glowPulse 2s infinite alternate;
+}
+
+@keyframes heartBeat{
+  0%,100%{transform:scale(1)}
+  45%{transform:scale(1.13)}
+  60%{transform:scale(1.04)}
+}
+
+@keyframes glowPulse{
+  to{transform:scale(1.5);opacity:.5}
+}
+
+/* CLOCK */
+.clock{
+  position:absolute;left:12%;bottom:17%;
+  width:62px;height:62px;border:1px solid #c99c9e;
+  border-radius:50%;background:#fffaf5aa;
+  box-shadow:0 0 18px #efc3c8;
+}
+
+.clock:before{
+  content:"";position:absolute;width:4px;height:4px;
+  border-radius:50%;background:#a8757d;
+  left:27px;top:27px;z-index:3;
+}
+
+.hand{
+  position:absolute;bottom:30px;left:29px;
+  width:2px;height:20px;background:#a8757d;
+  border-radius:5px;transform-origin:bottom;
+}
+
+.hour{transform:rotate(35deg)}
+.minute{height:25px;animation:tick 8s linear infinite}
+
+@keyframes tick{to{transform:rotate(360deg)}}
+
+.clock-caption{
+  position:absolute;left:10%;bottom:12%;
+  font-size:10px;color:#bd9299;letter-spacing:1px;
+}
+
+/* HEART BURST */
+.heart-area.burst .heart{
+  animation:heartBurst .9s ease-in forwards;
+}
+
+@keyframes heartBurst{
+  0%{transform:scale(1);opacity:1}
+  40%{transform:scale(1.6);opacity:1}
+  100%{transform:scale(3.5);opacity:0}
+}
+
+.burst-particle{
+  position:fixed;left:50%;top:45%;z-index:30;
+  pointer-events:none;font-size:20px;
+  animation:particleOut 1.5s ease-out forwards;
+}
+
+@keyframes particleOut{
+  to{
+    transform:translate(var(--x),var(--y)) rotate(300deg) scale(.2);
+    opacity:0;
+  }
+}
+
+/* PINK REVEAL */
+#pinkScene{
+  background:linear-gradient(120deg,#f4a4ba,#ee719c,#f6a2b8,#e97da5);
+  background-size:300% 300%;
+  animation:pinkMove 8s ease infinite;color:white;
+}
+
+@keyframes pinkMove{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+
+.pink-small{
+  font-size:12px;letter-spacing:4px;
+  color:#fff2f3;opacity:0;
+}
+
+.scene.active .pink-small{
+  animation:fadeIn 1s .5s forwards;
+}
+
+.birthday-title{
+  font-family:Georgia,serif;
+  font-size:clamp(35px,10vw,53px);
+  line-height:1.3;font-weight:normal;
+  color:white;text-shadow:0 5px 20px #9d3b6655;
+  margin-top:22px;
+}
+
+.birthday-title span{
+  display:inline-block;opacity:0;transform:translateY(35px);
+}
+
+.scene.active .birthday-title span{
+  animation:letterUp .8s forwards;
+}
+
+.scene.active .birthday-title span:nth-child(1){animation-delay:1s}
+.scene.active .birthday-title span:nth-child(2){animation-delay:1.5s}
+.scene.active .birthday-title span:nth-child(3){animation-delay:2s}
+
+@keyframes letterUp{
+  to{opacity:1;transform:translateY(0)}
+}
+
+.pink-stars{
+  position:absolute;inset:0;pointer-events:none;
+}
+
+.pink-star{
+  position:absolute;color:#fff;opacity:0;
+  animation:starAppear 3s infinite alternate;
+}
+
+@keyframes starAppear{
+  to{opacity:.8;transform:scale(1.5)}
+}
+
+/* TREE SCENE */
+#treeScene{
+  background:linear-gradient(145deg,#fffaf4,#fff0e9,#ffebe9);
+}
+
+.tree-heading{
+  font-size:clamp(23px,7vw,32px);
+  color:#a65e79;font-weight:normal;
+  margin-top:12px;opacity:0;
+}
+
+.scene.active .tree-heading{
+  animation:fadeIn 1.3s .3s forwards;
+}
+
+.tree-wrap{
+  position:relative;width:min(90vw,390px);
+  height:390px;margin-top:5px;
+}
+
+.tree-svg{
+  width:100%;height:100%;overflow:visible;
+}
+
+.branch{
+  fill:none;stroke:#86606b;stroke-width:4;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:600;stroke-dashoffset:600;
+}
+
+.scene.active .branch{
+  animation:branchGrow 3.8s ease forwards;
+}
+
+@keyframes branchGrow{to{stroke-dashoffset:0}}
+
+.flower{
+  transform-box:fill-box;transform-origin:center;
+  transform:scale(0);
+}
+
+.scene.active .flower{
+  animation:flowerGrow .8s ease forwards;
+}
+
+@keyframes flowerGrow{
+  0%{transform:scale(0)}
+  75%{transform:scale(1.2)}
+  100%{transform:scale(1)}
+}
+
+.tree-ground{
+  position:absolute;width:200px;height:18px;
+  left:50%;bottom:20px;transform:translateX(-50%);
+  border-radius:50%;background:#e9a5b6;
+  filter:blur(15px);opacity:.5;
+}
+
+.falling-petal{
+  position:absolute;top:-20px;color:#e889ad;
+  animation:petalFall 5s linear infinite;pointer-events:none;
+}
+
+@keyframes petalFall{
+  to{transform:translate(50px,450px) rotate(400deg);opacity:0}
+}
+
+/* FINAL SCENE */
+#finalScene{
+  background:radial-gradient(ellipse at center,#fff6ed,#ffe8eb);
+}
+
+.final-kicker{
+  color:#b47b8c;font-size:12px;
+  letter-spacing:4px;opacity:0;
+}
+
+.scene.active .final-kicker{
+  animation:fadeIn 1s .5s forwards;
+}
+
+.final-title{
+  font-size:clamp(30px,9vw,43px);
+  font-weight:normal;color:#a85477;
+  margin:22px 0 12px;text-shadow:0 3px 15px #f1b5c566;
+  opacity:0;transform:scale(.8);
+}
+
+.scene.active .final-title{
+  animation:finalReveal 1.5s 1s forwards;
+}
+
+@keyframes finalReveal{
+  to{opacity:1;transform:scale(1)}
+}
+
+.final-name{
+  font-family:"Brush Script MT",cursive;
+  font-size:clamp(45px,13vw,70px);
+  color:#d16d91;text-shadow:0 0 18px #e9a5bd;
+  opacity:0;
+}
+
+.scene.active .final-name{
+  animation:fadeIn 1.5s 1.8s forwards;
+}
+
+.message{
+  max-width:330px;margin-top:20px;padding:18px;
+  border:1px solid #e7b4c1;border-radius:15px;
+  background:#ffffff8a;color:#98677a;
+  font-size:14px;line-height:1.8;opacity:0;
+}
+
+.scene.active .message{
+  animation:fadeIn 1.5s 2.5s forwards;
+}
+
+@keyframes fadeIn{to{opacity:1}}
+
+.replay{
+  margin-top:20px;padding:11px 25px;
+  border:1px solid #d994ad;border-radius:30px;
+  background:#fff9f5;color:#a65e79;
+  font-family:Georgia,serif;opacity:0;
+}
+
+.scene.active .replay{
+  animation:fadeIn 1s 4s forwards;
+}
+
+.hidden{display:none!important}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<!-- INTRO -->
+
+<section class="scene active" id="intro">
+
+  <div class="small-text">A SPECIAL SURPRISE</div>
+
+  <h1 class="intro-title">
+    A little something<br>for someone special...
+  </h1>
+
+  <p style="font-size:13px;color:#bd9299">
+    A beautiful moment is waiting ✨
+  </p>
+
+  <button class="start-btn" onclick="startBirthday()">
+    Open Your Surprise ♡
+  </button>
+
+  <div class="signature">By ATUL</div>
+
+</section>
+
+<!-- HEART -->
+
+<section class="scene" id="heartScene">
+
+  <div class="heart-label">
+    A little wish from my heart...
+  </div>
+
+  <div class="heart-area" id="heartArea">
+    <div class="heart-glow"></div>
+    <div class="heart">💗</div>
+  </div>
+
+  <p style="font-size:14px;color:#b17b89">
+    A heart full of love for you...
+  </p>
+
+  <div class="clock">
+    <div class="hand hour"></div>
+    <div class="hand minute"></div>
+  </div>
+
+  <div class="clock-caption">
+    YOU MAKE MY WORLD BEAUTIFUL
+  </div>
+
+  <div class="signature">By ATUL</div>
+
+</section>
+
+<!-- PINK REVEAL -->
+
+<section class="scene" id="pinkScene">
+
+  <div class="pink-stars" id="pinkStars"></div>
+
+  <div class="pink-small">YOUR SPECIAL DAY IS HERE</div>
+
+  <h1 class="birthday-title">
+    <span>Happieeeee</span><br>
+    <span>birthdayyyy</span><br>
+    <span>betuuuuu! ♡</span>
+  </h1>
+
+  <p style="font-size:14px;margin-top:24px;color:#fff0f3">
+    16 November • Made with love ❤️
+  </p>
+
+  <div class="signature" style="color:white">
+    By ATUL
+  </div>
+
+</section>
+
+<!-- TREE -->
+
+<section class="scene" id="treeScene">
+
+  <div class="small-text">A NEW CHAPTER BEGINS</div>
+
+  <h2 class="tree-heading">
+    My love for you keeps growing...
+  </h2>
+
+  <div class="tree-wrap">
+
+    <div class="tree-ground"></div>
+
+    <svg class="tree-svg" viewBox="0 0 350 390">
+
+      <defs>
+        <radialGradient id="petal">
+          <stop offset="0%" stop-color="#fff8d9"/>
+          <stop offset="60%" stop-color="#f7a9c6"/>
+          <stop offset="100%" stop-color="#d96f9c"/>
+        </radialGradient>
+      </defs>
+
+      <path class="branch"
+        d="M175 350
+        Q170 290 175 225
+        Q150 190 105 155
+        Q85 130 65 105
+        M175 225
+        Q205 185 250 145
+        Q270 120 285 85
+        M175 285
+        Q130 260 95 235
+        Q75 220 60 190
+        M175 275
+        Q220 250 260 220
+        Q280 200 295 175
+        M175 225
+        Q170 155 175 75
+        M175 145
+        Q145 120 130 75
+        M175 125
+        Q210 95 225 55"/>
+
+      <g fill="url(#petal)">
+
+        <g class="flower" style="animation-delay:2.2s">
+          <circle cx="65" cy="105" r="13"/>
+          <circle cx="65" cy="84" r="12"/>
+          <circle cx="85" cy="105" r="12"/>
+          <circle cx="65" cy="126" r="12"/>
+          <circle cx="45" cy="105" r="12"/>
+        </g>
+
+        <g class="flower" style="animation-delay:2.5s">
+          <circle cx="285" cy="85" r="13"/>
+          <circle cx="285" cy="64" r="12"/>
+          <circle cx="306" cy="85" r="12"/>
+          <circle cx="285" cy="106" r="12"/>
+          <circle cx="264" cy="85" r="12"/>
+        </g>
+
+        <g class="flower" style="animation-delay:2.8s">
+          <circle cx="175" cy="75" r="15"/>
+          <circle cx="175" cy="50" r="13"/>
+          <circle cx="200" cy="75" r="13"/>
+          <circle cx="175" cy="100" r="13"/>
+          <circle cx="150" cy="75" r="13"/>
+        </g>
+
+        <g class="flower" style="animation-delay:3.1s">
+          <circle cx="60" cy="190" r="12"/>
+          <circle cx="60" cy="170" r="10"/>
+          <circle cx="80" cy="190" r="10"/>
+          <circle cx="60" cy="210" r="10"/>
+          <circle cx="40" cy="190" r="10"/>
+        </g>
+
+        <g class="flower" style="animation-delay:3.4s">
+          <circle cx="295" cy="175" r="12"/>
+          <circle cx="295" cy="155" r="10"/>
+          <circle cx="315" cy="175" r="10"/>
+          <circle cx="295" cy="195" r="10"/>
+          <circle cx="275" cy="175" r="10"/>
+        </g>
+
+        <g class="flower" style="animation-delay:3.7s">
+          <circle cx="130" cy="75" r="11"/>
+          <circle cx="130" cy="57" r="9"/>
+          <circle cx="148" cy="75" r="9"/>
+          <circle cx="130" cy="93" r="9"/>
+          <circle cx="112" cy="75" r="9"/>
+        </g>
+
+        <g class="flower" style="animation-delay:4s">
+          <circle cx="225" cy="55" r="11"/>
+          <circle cx="225" cy="37" r="9"/>
+          <circle cx="243" cy="55" r="9"/>
+          <circle cx="225" cy="73" r="9"/>
+          <circle cx="207" cy="55" r="9"/>
+        </g>
+
+      </g>
+
+      <g fill="#ffe8a8">
+        <circle cx="65" cy="105" r="4"/>
+        <circle cx="285" cy="85" r="4"/>
+        <circle cx="175" cy="75" r="5"/>
+        <circle cx="60" cy="190" r="4"/>
+        <circle cx="295" cy="175" r="4"/>
+        <circle cx="130" cy="75" r="4"/>
+        <circle cx="225" cy="55" r="4"/>
+      </g>
+
+    </svg>
+
+  </div>
+
+  <p style="font-size:14px;color:#a87989">
+    May all your dreams bloom beautifully. 🌸
+  </p>
+
+  <div class="signature">By ATUL</div>
+
+</section>
+
+<!-- FINAL -->
+
+<section class="scene" id="finalScene">
+
+  <div class="final-kicker">
+    16 NOVEMBER
+  </div>
+
+  <h1 class="final-title">
+    HAPPY BIRTHDAY<br>MY LOVE! 🎂
+  </h1>
+
+  <div class="final-name">
+    Betuuu
+  </div>
+
+  <div class="message">
+    Happieeeee birthdayyyy betuuuuu! 🥹❤️
+
+    <br><br>
+
+    You are one of the most beautiful parts of my life.
+    Your smile makes my days brighter, and your happiness
+    means more to me than words can ever explain. 💗
+
+    <br><br>
+
+    I wish you endless happiness, countless reasons to smile,
+    and the courage to achieve every dream in your heart.
+
+    <br><br>
+
+    Thank you for being you and for making my world
+    a little more beautiful just by being in it.
+
+    <br><br>
+
+    Keep smiling, keep shining, and always remember
+    how special you are to me.
+
+    <br><br>
+
+    Lots of love, my betuuu! ❤️🫶
+  </div>
+
+  <button class="replay" onclick="replayBirthday()">
+    Watch Again ♡
+  </button>
+
+  <div class="signature">By ATUL</div>
+
+</section>
+
+</div>
+
+<script>
+
+// CREATE PINK SPARKLES
+
+const pinkStars=document.getElementById("pinkStars");
+
+for(let i=0;i<35;i++){
+  const star=document.createElement("span");
+  star.className="pink-star";
+  star.textContent="✦";
+  star.style.left=Math.random()*100+"%";
+  star.style.top=Math.random()*100+"%";
+  star.style.fontSize=(8+Math.random()*14)+"px";
+  star.style.animationDelay=Math.random()*3+"s";
+  pinkStars.appendChild(star);
+}
+
+// SCENE CONTROL
+
+const sceneIds=[
+  "intro",
+  "heartScene",
+  "pinkScene",
+  "treeScene",
+  "finalScene"
+];
+
+let timer;
+let currentScene=0;
+
+function showScene(index){
+
+  clearTimeout(timer);
+
+  document.querySelectorAll(".scene")
+    .forEach(scene=>scene.classList.remove("active"));
+
+  currentScene=index;
+
+  const scene=document.getElementById(sceneIds[index]);
+
+  void scene.offsetWidth;
+
+  scene.classList.add("active");
+
+  if(index===1){
+
+    timer=setTimeout(()=>{
+      if(currentScene!==1)return;
+
+      explodeHeart();
+
+      timer=setTimeout(()=>{
+        if(currentScene===1)showScene(2);
+      },900);
+
+    },4500);
+  }
+
+  if(index===2){
+    timer=setTimeout(()=>{
+      if(currentScene===2)showScene(3);
+    },6500);
+  }
+
+  if(index===3){
+    createFallingPetals();
+
+    timer=setTimeout(()=>{
+      if(currentScene===3)showScene(4);
+    },8500);
+  }
+
+}
+
+// START
+
+function startBirthday(){
+  showScene(1);
+}
+
+// HEART EXPLOSION
+
+function explodeHeart(){
+
+  const area=document.getElementById("heartArea");
+  area.classList.add("burst");
+
+  const particles=["♡","✦","✧","♥","✿","✨"];
+
+  for(let i=0;i<55;i++){
+
+    const p=document.createElement("span");
+
+    p.className="burst-particle";
+    p.textContent=particles[
+      Math.floor(Math.random()*particles.length)
+    ];
+
+    const angle=Math.random()*Math.PI*2;
+    const distance=70+Math.random()*210;
+
+    p.style.setProperty("--x",
+      Math.cos(angle)*distance+"px");
+
+    p.style.setProperty("--y",
+      Math.sin(angle)*distance+"px");
+
+    document.body.appendChild(p);
+
+    setTimeout(()=>p.remove(),1700);
+  }
+}
+
+// FALLING TREE PETALS
+
+function createFallingPetals(){
+
+  const scene=document.getElementById("treeScene");
+
+  for(let i=0;i<18;i++){
+
+    const petal=document.createElement("span");
+
+    petal.className="falling-petal";
+    petal.textContent="✿";
+
+    petal.style.left=Math.random()*100+"%";
+    petal.style.animationDelay=Math.random()*4+"s";
+    petal.style.animationDuration=(4+Math.random()*3)+"s";
+
+    scene.appendChild(petal);
+  }
+}
+
+// REPLAY
+
+function replayBirthday(){
+
+  document.querySelectorAll(".falling-petal")
+    .forEach(p=>p.remove());
+
+  document.getElementById("heartArea")
+    .classList.remove("burst");
+
+  showScene(0);
+}
+
+</script>
+
+</body>
+  </html>
+  
